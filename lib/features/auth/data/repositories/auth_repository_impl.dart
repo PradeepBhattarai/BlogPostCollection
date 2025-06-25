@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:blogpost_colln/core/error/exception.dart';
 import 'package:blogpost_colln/core/error/failure.dart';
@@ -65,6 +66,26 @@ class AuthRepositoryImpl implements AuthRepository{
       return Left(Failure(message: e.toString()));
     }
   }
+  
+  @override
+@override
+@override
+Future<Either<Failure, void>> signOut() async {
+  try {
+    if (!await connectionChecker.isConnected) {
+      return left(Failure(message: 'No internet connection'));
+    }
+
+    await remoteDataSource.signOut();
+    print('success');
+
+    return right(null);
+  } on ServerException catch (e) {
+    return left(Failure(message: e.message));
+  } catch (e) {
+    return left(Failure(message: 'Unexpected error: $e'));
+  }
+}
 
 }
 Future <Either<Failure,User>> _getUser(

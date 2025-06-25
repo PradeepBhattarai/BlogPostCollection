@@ -4,6 +4,7 @@ import 'package:blogpost_colln/features/auth/data/datasources/auth_remote_data_s
 import 'package:blogpost_colln/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:blogpost_colln/features/auth/domain/repository/auth_repository.dart';
 import 'package:blogpost_colln/features/auth/domain/usecases/current_user.dart';
+import 'package:blogpost_colln/features/auth/domain/usecases/sign_out.dart';
 import 'package:blogpost_colln/features/auth/domain/usecases/user_login.dart';
 import 'package:blogpost_colln/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:blogpost_colln/features/auth/presentation/bloc/auth_bloc.dart';

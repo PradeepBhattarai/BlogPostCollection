@@ -1,4 +1,5 @@
 import 'package:blogpost_colln/core/error/exception.dart';
+import 'package:blogpost_colln/core/error/failure.dart';
 import 'package:blogpost_colln/features/auth/data/model/usr_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -15,6 +16,8 @@ abstract interface class AuthRemoteDataSource {
     required String email,
     required String password,
   });
+
+  Future<void> signOut();
   
 
   Future<UserModel?> getCurrentUserData();
@@ -105,5 +108,13 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     
   }
   
-
+  @override
+  Future<void> signOut() async {
+    try{
+      await supabaseClient.auth.signOut();
+      print('success');
+    } catch(e){
+      throw ServerException(e.toString());
+    }
+  }
 }

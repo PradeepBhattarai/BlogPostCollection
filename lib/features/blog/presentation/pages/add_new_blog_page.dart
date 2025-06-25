@@ -129,7 +129,7 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
                                 strokeCap: StrokeCap.round,
                               ),
 
-                              child: Container(
+                              child: SizedBox(
                                 height: 150,
                                 width: double.infinity,
                                 child: Column(

@@ -62,6 +62,7 @@ void _initAuth() {
         repository: serviceLocator(),
       ),
     )
+    ..registerFactory(()=>SignOut(serviceLocator()))
     ..registerFactory(
       () => CurrentUser(
         serviceLocator(),
@@ -74,6 +75,8 @@ void _initAuth() {
         userLogin: serviceLocator(),
         currentUser: serviceLocator(),
         appUserCubit: serviceLocator(),
+        signOut: serviceLocator(),
+        
       ),
     );
 }
@@ -116,5 +119,6 @@ void _initBlog() {
         uploadBlog: serviceLocator(),
         getAllBlogs: serviceLocator(),
       ),
+
     );
 }
