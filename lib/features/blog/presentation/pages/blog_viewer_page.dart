@@ -3,6 +3,7 @@ import 'package:blogpost_colln/core/theme/app_pallet.dart';
 import 'package:blogpost_colln/core/utils/calculate_reading_time.dart';
 import 'package:blogpost_colln/core/utils/format_date.dart';
 import 'package:blogpost_colln/features/blog/domain/entities/blog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class BlogViewerPage extends StatefulWidget {
@@ -71,7 +72,17 @@ class _BlogViewerPageState extends State<BlogViewerPage> {
                 const SizedBox(height: 20),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(widget.blog.imageUrl ?? ''),
+                  child: CachedNetworkImage(
+                    imageUrl: widget.blog.imageUrl ?? '',
+                    progressIndicatorBuilder: (_,url, download) {
+                      if (download.progress!=null){
+                        final percentage=download.progress!*100;
+                        return(Text('$percentage done loading'));
+                      }
+                      return (Text('loaded $url'));
+                    },
+
+                    ),
                 ),
                 const SizedBox(height: 20),
                 Text(

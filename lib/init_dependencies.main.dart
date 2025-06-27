@@ -76,6 +76,7 @@ void _initAuth() {
         currentUser: serviceLocator(),
         appUserCubit: serviceLocator(),
         signOut: serviceLocator(),
+        googleSignIn: serviceLocator(),
         
       ),
     );
@@ -119,6 +120,10 @@ void _initBlog() {
         uploadBlog: serviceLocator(),
         getAllBlogs: serviceLocator(),
       ),
-
+    )
+    ..registerFactory(
+      () => GoogleSignInUseCase(
+        serviceLocator()
+      ),
     );
 }

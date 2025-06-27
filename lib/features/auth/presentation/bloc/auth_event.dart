@@ -33,4 +33,6 @@ final class AuthIsUserLoggedin extends AuthEvent{
 final class AuthSignOut extends AuthEvent{}
 
 
-class AuthLoggedOut extends AuthState {} // ✅ A valid state after logout
+class AuthLoggedOut extends AuthState {} 
+
+class AuthGoogleSignIn extends  AuthEvent{}

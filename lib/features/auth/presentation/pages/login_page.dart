@@ -40,10 +40,14 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(15.0),
           child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
-              if (state is AuthFailure){
+              if (state is AuthFailure) {
                 showSnackbar(context, state.message);
-              } else if(state is AuthSuccess){
-                Navigator.pushAndRemoveUntil(context, BlogPage.route(), (route)=>false);
+              } else if (state is AuthSuccess) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  BlogPage.route(),
+                  (route) => false,
+                );
               }
             },
             builder: (context, state) {
@@ -81,15 +85,42 @@ class _LoginPageState extends State<LoginPage> {
                               password: passwordController.text.trim(),
                             ),
                           );
-                          print('Login button pressed');
                         }
                       },
                     ),
                     const SizedBox(height: 20),
 
+
+                    ElevatedButton.icon(
+                      onPressed: () {
+
+                        context.read<AuthBloc>().add(AuthGoogleSignIn());
+                        
+                      },
+                      icon: Image.asset(
+                        'assets/logo/google.png',
+                        height: 24,
+                        width: 24,
+                      ),
+                      label: const Text("Sign in with Google"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 12,
+                        ),
+                        textStyle: const TextStyle(fontSize: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        elevation: 2,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
                     GestureDetector(
                       onTap: () {
-                        // Navigate to Sign Up page
                         Navigator.push(context, SignupPage.route());
                       },
                       child: RichText(

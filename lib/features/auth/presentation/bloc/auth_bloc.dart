@@ -3,6 +3,7 @@ import 'package:blogpost_colln/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:blogpost_colln/core/usercase/usecase.dart';
 import 'package:blogpost_colln/core/common/entities/user.dart';
 import 'package:blogpost_colln/features/auth/domain/usecases/current_user.dart';
+import 'package:blogpost_colln/features/auth/domain/usecases/google_sign_in.dart';
 import 'package:blogpost_colln/features/auth/domain/usecases/sign_out.dart';
 import 'package:blogpost_colln/features/auth/domain/usecases/user_login.dart';
 import 'package:blogpost_colln/features/auth/domain/usecases/user_sign_up.dart';
@@ -19,6 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final CurrentUser _currentUser;
   final AppUserCubit _appUserCubit;
   final SignOut _signOut;
+  final GoogleSignInUseCase _googleSignIn;
 
 
   AuthBloc({
@@ -27,18 +29,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required CurrentUser currentUser,
     required AppUserCubit appUserCubit,
     required SignOut signOut,
+    required GoogleSignInUseCase googleSignIn,
     })
       : _userSignUp = userSignUp,
         _userLogin = userLogin,
         _currentUser=currentUser,
         _appUserCubit=appUserCubit,
         _signOut=signOut,
+        _googleSignIn=googleSignIn,
         super(AuthInitial()) {
     on<AuthEvent>((_,emit)=>(AuthLoading()));
     on<AuthsignUp>(_onAuthSignUp);
     on<AuthLogin>(_onAuthLogin);  
     on<AuthIsUserLoggedin>(_isUserLoggedIn);
     on<AuthSignOut>(_onLogout);
+    on<AuthGoogleSignIn>(_onGoogleSignIn);
 
   }
 
@@ -88,5 +93,17 @@ void _onLogout(AuthSignOut event, Emitter<AuthState> emit) async {
     },
   );
 }
+
+void _onGoogleSignIn(AuthGoogleSignIn event, Emitter<AuthState> emit) async {
+    final res=await _googleSignIn();
+    res.fold(
+      (failure)=>emit (AuthFailure(message: failure)),
+
+      (user){
+        _appUserCubit.updateUser(user);
+        emit(AuthSuccess(user:user));
+      }
+    );
+  }
 
 }

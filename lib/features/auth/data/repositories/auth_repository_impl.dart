@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:blogpost_colln/core/error/exception.dart';
 import 'package:blogpost_colln/core/error/failure.dart';
@@ -67,8 +66,7 @@ class AuthRepositoryImpl implements AuthRepository{
     }
   }
   
-  @override
-@override
+
 @override
 Future<Either<Failure, void>> signOut() async {
   try {
@@ -86,6 +84,19 @@ Future<Either<Failure, void>> signOut() async {
     return left(Failure(message: 'Unexpected error: $e'));
   }
 }
+
+  @override
+  Future<Either<String, User>> googleSignIn() async{
+    try{
+
+      return right(await remoteDataSource.signInWithGoogle());
+
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+
+
+  }
 
 }
 Future <Either<Failure,User>> _getUser(

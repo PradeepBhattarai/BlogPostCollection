@@ -4,6 +4,7 @@ import 'package:blogpost_colln/features/auth/data/datasources/auth_remote_data_s
 import 'package:blogpost_colln/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:blogpost_colln/features/auth/domain/repository/auth_repository.dart';
 import 'package:blogpost_colln/features/auth/domain/usecases/current_user.dart';
+import 'package:blogpost_colln/features/auth/domain/usecases/google_sign_in.dart';
 import 'package:blogpost_colln/features/auth/domain/usecases/sign_out.dart';
 import 'package:blogpost_colln/features/auth/domain/usecases/user_login.dart';
 import 'package:blogpost_colln/features/auth/domain/usecases/user_sign_up.dart';
@@ -16,6 +17,7 @@ import 'package:blogpost_colln/features/blog/domain/usecases/get_all_blogs.dart'
 import 'package:blogpost_colln/features/blog/domain/usecases/upload_blog.dart';
 import 'package:blogpost_colln/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:blogpost_colln/core/secrets/app_secrets.dart';
 
